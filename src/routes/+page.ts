@@ -1,6 +1,6 @@
-import { redirect } from "@sveltejs/kit";
+import { redirect } from '@sveltejs/kit';
 
 export function load() {
-    let isFirstVisit = !localStorage.getItem("visited");
-    if (isFirstVisit) redirect(303, "/new");
+	let isFirstVisit = !localStorage.getItem('visited');
+	if (isFirstVisit) redirect(303, '/new');
 }
