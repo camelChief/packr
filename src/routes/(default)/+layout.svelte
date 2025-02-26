@@ -3,18 +3,22 @@
 	import { ActionType } from '$lib/models/page-data';
 	import { eventStore, validationStore } from '$lib/stores';
 	import { ArrowLeft, Gitlab, MoveRight } from 'lucide-svelte';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
+	import type { Unsubscriber } from 'svelte/store';
 
 	let { children } = $props();
 	let validations: string[] = $state([]);
+	let unsubscribeValidations: Unsubscriber;
 
 	onMount(() => {
-		validationStore.subscribe((v) => (validations = v));
+		unsubscribeValidations = validationStore.subscribe((v) => (validations = v));
 	});
+
+	onDestroy(() => unsubscribeValidations());
 </script>
 
 <main class="column">
-	<section class="top-bar">
+	<section class="top-bar border-base-content/10">
 		<div class="breadcrumb">
 			<a href="/" class="logo">
 				<Gitlab size={16} strokeWidth={3} />
@@ -30,7 +34,7 @@
 	<section class="content">
 		{@render children()}
 	</section>
-	<section class="bottom-bar">
+	<section class="bottom-bar border-base-content/10">
 		<div class="actions">
 			{#if page.data.useBackButton}
 				<a href={page.data.backButtonUrl} class="btn btn-lg btn-square">
@@ -68,7 +72,8 @@
 
 <style>
 	.top-bar {
-		border-bottom: 1px solid var(--color-base-300);
+		border-bottom-style: solid;
+		border-bottom-width: 1px;
 		flex-shrink: 0;
 		padding: 2rem 2rem 1rem 2rem;
 	}
@@ -95,7 +100,8 @@
 	}
 
 	.bottom-bar {
-		border-top: 1px solid var(--color-base-300);
+		border-top-style: solid;
+		border-top-width: 1px;
 		flex-shrink: 0;
 		height: 3.5rem;
 	}

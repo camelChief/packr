@@ -1,14 +1,16 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { Game, Status } from '$lib/models/game';
-	import { createGame, getGames } from '$lib/services/game-service';
+	import { createGame, getGames, updateGame } from '$lib/services/game-service';
 	import { getPlayers } from '$lib/services/player-service';
 	import { eventStore, validationStore } from '$lib/stores';
 	import { Square, SquareCheck, SquareMinus, UserSquare } from 'lucide-svelte';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
+	import type { Unsubscriber } from 'svelte/store';
 
 	let names: string[] = [];
 	let selectedNames: string[] = [];
+	let unsubscribeEvents: Unsubscriber;
 
 	function selectAll() {
 		if (selectedNames.length > 0) selectedNames = [];
@@ -35,23 +37,34 @@
 	}
 
 	function subscribeToEvents() {
-		eventStore.subscribe(async (event) => {
+		unsubscribeEvents = eventStore.subscribe(async (event) => {
 			if (event === 'nextPage') {
 				eventStore.set('');
-				const id = new Date().getTime();
-				const game = new Game(id, selectedNames);
-				await createGame(game);
+
+				const games = await getGames();
+				const draftGame = games.find((game) => game.status === Status.Draft);
+				if (draftGame) {
+					draftGame.players = selectedNames;
+					await updateGame(draftGame);
+				} else {
+					// create new game
+					const id = new Date().getTime();
+					const game = new Game(id, selectedNames);
+					await createGame(game);
+				}
+
+				// navigate to next page
 				goto('/new-game/roles');
 			}
 		});
 	}
 
 	async function populateNames() {
-		let players = await getPlayers();
+		const players = await getPlayers();
 		names = players.map((player) => player.name);
-		let games = await getGames();
-		let setUpGame = games.find((game) => game.status === Status.SettingUp);
-		selectedNames = setUpGame?.players ?? [];
+		const games = await getGames();
+		const draftGame = games.find((game) => game.status === Status.Draft);
+		selectedNames = draftGame?.players ?? [];
 	}
 
 	onMount(async () => {
@@ -59,15 +72,17 @@
 		await populateNames();
 		validate();
 	});
+
+	onDestroy(() => unsubscribeEvents());
 </script>
 
 {#if names?.length}
-	<p class="pb-8">
-		Select <strong>at least 7</strong> and <strong>at most 35</strong> players to be involved in this
+	<p class="mb-8">
+		Select at least 7 and at most 35 players to be involved in this
 		game of Werewolf.
 	</p>
-	<ul class="list">
-		<button onclick={selectAll} class="list-row bg-base-200">
+	<ul class="list rounded-box border-1 border-base-content/10">
+		<button onclick={selectAll} class="p-4 flex items-center gap-4 font-bold">
 			{#if selectedNames.length === names.length}
 				<SquareCheck />
 			{:else if selectedNames.length > 0}
@@ -85,12 +100,13 @@
 			<button onclick={() => select(name)} class="list-row">
 				{#if selectedNames.includes(name)}
 					<UserSquare />
+					{name}
 				{:else}
 					<div class="opacity-25">
 						<Square />
 					</div>
+					<span class="opacity-25">{name}</span>	
 				{/if}
-				{name}
 			</button>
 		{/each}
 	</ul>

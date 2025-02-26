@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Gitlab, Settings, Swords, Users } from 'lucide-svelte';
+	import { Drama, Gitlab, Settings, Swords, Users } from 'lucide-svelte';
 </script>
 
 <main class="column">
@@ -11,14 +11,18 @@
 		<Swords />
 		New Game
 	</a>
-	<a href="/players" class="btn btn-lg">
+	<a href="/manage-players" class="btn btn-lg">
 		<Users />
 		Manage Players
 	</a>
-	<button class="btn btn-lg" disabled>
+	<a href="/manage-roles" class="btn btn-lg">
+		<Drama />
+		Manage Roles
+	</a>
+	<a href="/settings" class="btn btn-lg">
 		<Settings />
 		Settings
-	</button>
+	</a>
 </main>
 
 <style>

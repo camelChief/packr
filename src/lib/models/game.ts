@@ -1,6 +1,6 @@
 export enum Status {
-	SettingUp,
-	InProgress,
+	Draft,
+	Running,
 	Complete
 }
 
@@ -15,7 +15,7 @@ export class Game implements GameObj {
 	status: Status;
 	players: string[];
 
-	constructor(id: number, players: string[], status = Status.SettingUp) {
+	constructor(id: number, players: string[], status = Status.Draft) {
 		this.id = id;
 		this.status = status;
 		this.players = players;

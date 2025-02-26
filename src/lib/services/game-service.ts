@@ -14,6 +14,12 @@ export async function getGames() {
 	return games.map((game) => new Game(game.id, game.players));
 }
 
+// update
+export async function updateGame(game: Game) {
+	const db = await getDatabase();
+	await db.put('games', game.toObj());
+}
+
 // delete
 export async function deleteGame(id: number) {
 	const db = await getDatabase();

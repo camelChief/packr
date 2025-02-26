@@ -14,6 +14,11 @@ export async function getPlayers() {
 	return players.map(Player.fromObj);
 }
 
+export async function countPlayers() {
+	const db = await getDatabase();
+	return await db.count('players');
+}
+
 // delete
 export async function deletePlayer(name: string) {
 	const db = await getDatabase();
