@@ -4,13 +4,13 @@
 	import { createGame, getGames, updateGame } from '$lib/services/game-service';
 	import { getPlayers } from '$lib/services/player-service';
 	import { eventStore, validationStore } from '$lib/stores';
-	import { Square, SquareCheck, SquareMinus, UserSquare } from 'lucide-svelte';
+	import { Square, SquareCheck, SquareDot, SquareMinus, UserSquare } from 'lucide-svelte';
 	import { onDestroy, onMount } from 'svelte';
 	import type { Unsubscriber } from 'svelte/store';
 
 	let names: string[] = [];
 	let selectedNames: string[] = [];
-	let unsubscribeEvents: Unsubscriber;
+	let unsubscribeFromEvents: Unsubscriber;
 
 	function selectAll() {
 		if (selectedNames.length > 0) selectedNames = [];
@@ -37,7 +37,7 @@
 	}
 
 	function subscribeToEvents() {
-		unsubscribeEvents = eventStore.subscribe(async (event) => {
+		unsubscribeFromEvents = eventStore.subscribe(async (event) => {
 			if (event === 'nextPage') {
 				eventStore.set('');
 
@@ -73,7 +73,7 @@
 		validate();
 	});
 
-	onDestroy(() => unsubscribeEvents());
+	onDestroy(() => unsubscribeFromEvents());
 </script>
 
 {#if names?.length}
@@ -87,7 +87,7 @@
 				<SquareCheck />
 			{:else if selectedNames.length > 0}
 				<div class="opacity-50">
-					<SquareMinus />
+					<SquareDot />
 				</div>
 			{:else}
 				<div class="opacity-25">
@@ -113,8 +113,12 @@
 {:else}
 	<!-- todo: upgrade this with an image :) -->
 	<div class="empty">
-		No players found!
-		<br />Add players on the Manage Player page.
+		<p class="text-center">
+			No players found!
+			<br />Add players from the
+			<a href="/manage-players" class="link">Manage Players</a>
+			screen.
+		</p>
 	</div>
 {/if}
 
@@ -128,6 +132,5 @@
 		align-items: center;
 		display: flex;
 		height: 100%;
-		text-align: center;
 	}
 </style>

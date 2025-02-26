@@ -1,72 +1,53 @@
 <script lang="ts">
+	import { goto } from "$app/navigation";
+	import { ROLES } from "$lib/constants";
 	import { Status } from "$lib/models/game";
-	import { Team } from "$lib/models/role";
+	import { RoleType, Team, type Role } from "$lib/models/role";
 	import { getGames } from "$lib/services/game-service";
-	import { Beer, CircleSmall, Eye, Gitlab, Heart, HeartCrack, Minus, Plus, Stethoscope, Sword, User, Wand } from "lucide-svelte";
-	import { onMount } from "svelte";
+	import { eventStore } from "$lib/stores";
+	import { CircleSmall, Gitlab, Minus, Plus, User } from "lucide-svelte";
+	import { onDestroy, onMount } from "svelte";
+	import type { Unsubscriber } from "svelte/store";
 
-    // todo - move over to ROLES from constants.ts
-    let roles = $state([
-        {
-            name: 'Doctor',
-            icon: Stethoscope,
-            team: Team.Villager,
-            required: true
-        },
-        {
-            name: 'Seer',
-            icon: Eye,
-            team: Team.Villager,
-            required: true
-        },
-        {
-            name: 'Witch',
-            icon: Wand,
-            team: Team.Villager,
-            selected: false
-        },
-        {
-            name: 'Village Drunk',
-            icon: Beer,
-            team: Team.Villager,
-            selected: false
-        },
-        {
-            name: 'Alpha Werewolf',
-            icon: Gitlab,
-            team: Team.Werewolf,
-            selected: false
-        },
-        {
-            name: 'Cupid',
-            icon: HeartCrack,
-            team: Team.Villager,
-            selected: false
-        },
-        {
-            name: 'Lone Wolf',
-            icon: Gitlab,
-            team: Team.Werewolf,
-            selected: false
-        },
-        {
-            name: 'Vigilante',
-            icon: Sword,
-            team: Team.Villager,
-            selected: false
-        },
-        {
-            name: 'Wolf Cub',
-            icon: Gitlab,
-            team: Team.Werewolf,
-            selected: false
-        }
-    ]);
+    interface SelectableRole extends Role {
+        selected?: boolean;
+    }
 
+    let roles: SelectableRole[] = $state([]);
     let recommendedWerewolves = $state(0);
     let playerCount = 0;
     let werewolfCount = $state(0);
     let villagerCount = $derived(playerCount - werewolfCount);
+    let unsubscribeFromEvents: Unsubscriber;
+
+    function populateRoles() {
+        roles = ROLES
+            .filter(role => role.type === RoleType.Special)
+            .map(role => ({ ...role, selected: false }));
+    }
+
+    function subscribeToEvents() {
+		unsubscribeFromEvents = eventStore.subscribe(async (event) => {
+			if (event === 'nextPage') {
+				eventStore.set('');
+
+				// const games = await getGames();
+				// const draftGame = games.find((game) => game.status === Status.Draft);
+				// if (draftGame) {
+				// 	draftGame.players = selectedNames;
+				// 	await updateGame(draftGame);
+				// } else {
+				// 	// create new game
+				// 	const id = new Date().getTime();
+				// 	const game = new Game(id, selectedNames);
+				// 	await createGame(game);
+				// }
+
+				// navigate to next page
+				goto('/new-game/settings');
+			}
+		});
+	}
 
     async function calculateWerewolves() {
         const games = await getGames();
@@ -85,11 +66,14 @@
     }
 
     onMount(() => {
+        subscribeToEvents();
+        populateRoles();
         calculateWerewolves();
     });
+
+    onDestroy(() => unsubscribeFromEvents());
 </script>
 
-<!-- <h4>Required Roles</h4> -->
 <p class="mb-8">
     Each game must include the Doctor, the Seer, and at least 1 Werewolf ({recommendedWerewolves} recommended for this game).
 </p>

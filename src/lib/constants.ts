@@ -1,18 +1,19 @@
-import { Beer, Eye, Gitlab, HeartCrack, Stethoscope, Sword, User, Wand } from "lucide-svelte";
-import { Team, Type, type Role } from "./models/role";
+import { Beer, Eye, Gitlab, HeartCrack, Stethoscope, Swords, User, Wand } from "lucide-svelte";
+import { RoleType, Team, type Role } from "./models/role";
+import type { Setting } from "./models/setting";
 
 export const ROLES: Role[] = [
     { // standard roles
         name: 'Villager',
         icon: User,
-        type: Type.Standard,
+        type: RoleType.Standard,
         team: Team.Villager,
         required: true
     },
     {
         name: 'Werewolf',
         icon: Gitlab,
-        type: Type.Standard,
+        type: RoleType.Standard,
         team: Team.Werewolf,
         required: true
     },
@@ -20,58 +21,83 @@ export const ROLES: Role[] = [
     { // villager special roles
         name: 'Doctor',
         icon: Stethoscope,
-        type: Type.Special,
+        type: RoleType.Special,
         team: Team.Villager,
         required: true
     },
     {
         name: 'Seer',
         icon: Eye,
-        type: Type.Special,
+        type: RoleType.Special,
         team: Team.Villager,
         required: true
     },
     {
         name: 'Witch',
         icon: Wand,
-        type: Type.Special,
+        type: RoleType.Special,
         team: Team.Villager,
     },
     {
         name: 'Village Drunk',
         icon: Beer,
-        type: Type.Special,
+        type: RoleType.Special,
         team: Team.Villager,
     },
     {
         name: 'Cupid',
         icon: HeartCrack,
-        type: Type.Special,
+        type: RoleType.Special,
         team: Team.Villager,
     },
     {
         name: 'Vigilante',
-        icon: Sword,
-        type: Type.Special,
+        icon: Swords,
+        type: RoleType.Special,
         team: Team.Villager,
     },
 
     { // werewolf special roles
         name: 'Alpha Werewolf',
         icon: Gitlab,
-        type: Type.Special,
+        type: RoleType.Special,
         team: Team.Werewolf,
     },
     {
         name: 'Lone Wolf',
         icon: Gitlab,
-        type: Type.Special,
+        type: RoleType.Special,
         team: Team.Werewolf,
     },
     {
         name: 'Wolf Cub',
         icon: Gitlab,
-        type: Type.Special,
+        type: RoleType.Special,
         team: Team.Werewolf,
     }
+];
+
+export const SETTINGS: Setting[] = [
+    { // toggle settings
+        id: 'aiGeneratedDeathMessages',
+        label: 'AI Death Messages',
+        description: 'Use AI to generate short and funny death messages',
+        type: 'boolean',
+        default: true
+    },
+    {
+        id: 'revealRolesAfterDeath',
+        label: 'Reveal Roles',
+        description: 'Player roles are revealed after they die',
+        type: 'boolean',
+        default: false
+    },
+
+    { // numeric settings
+        id: 'countWerewolvesFrequency',
+        label: 'Werewolf Count Frequency',
+        description: 'Reveal the number of werewolves left in the game every X days',
+        type: 'number',
+        default: 0
+    },
 ];

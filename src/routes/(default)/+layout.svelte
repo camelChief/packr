@@ -29,15 +29,15 @@
 				{crumb}
 			{/each}
 		</div>
-		<h3 class="title">{page.data.title ?? 'Unknown'}</h3>
+		<h3>{page.data.title ?? 'Unknown'}</h3>
 	</section>
 	<section class="content">
 		{@render children()}
 	</section>
 	<section class="bottom-bar border-base-content/10">
-		<div class="actions">
+		<div class="actions rounded-box">
 			{#if page.data.useBackButton}
-				<a href={page.data.backButtonUrl} class="btn btn-lg btn-square">
+				<a href={page.data.backButtonUrl} class="btn btn-square">
 					{#if page.data.backButtonIcon}
 						<page.data.backButtonIcon />
 					{:else}
@@ -49,7 +49,7 @@
 				{#if action.type === ActionType.Button}
 					<button
 						onclick={() => eventStore.set(action.reference)}
-						class={['btn btn-lg btn-square', action.class]}
+						class={['btn btn-square', action.class]}
 						disabled={action.validIf && !validations.includes(action.validIf)}
 					>
 						<action.icon />
@@ -57,7 +57,7 @@
 				{:else if action.type === ActionType.Link}
 					<a
 						href={action.reference}
-						class="btn btn-lg btn-square {action.class} {action.validIf &&
+						class="btn btn-square {action.class} {action.validIf &&
 						validations.includes(action.validIf)
 							? ''
 							: 'btn-disabled'}"
@@ -103,7 +103,7 @@
 		border-top-style: solid;
 		border-top-width: 1px;
 		flex-shrink: 0;
-		height: 3.5rem;
+		height: 3.25rem;
 	}
 
 	.bottom-bar .actions {

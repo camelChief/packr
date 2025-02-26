@@ -1,4 +1,4 @@
-export enum Type {
+export enum RoleType {
     Standard,
     Special
 }
@@ -11,7 +11,7 @@ export enum Team {
 export interface Role {
     name: string;
     icon: any;
-    type: Type;
+    type: RoleType;
     team: Team;
     required?: boolean;
 }

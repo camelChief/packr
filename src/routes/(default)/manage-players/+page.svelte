@@ -2,7 +2,7 @@
 	import { Player } from '$lib/models/player';
 	import { createPlayer, deletePlayer, getPlayers } from '$lib/services/player-service';
 	import { eventStore } from '$lib/stores';
-	import { ArrowLeft, Save, User, X } from 'lucide-svelte';
+	import { ArrowLeft, Pencil, PencilRuler, Save, Settings2, User, X } from 'lucide-svelte';
 	import { onMount } from 'svelte';
 
 	let players: Player[];
@@ -42,12 +42,17 @@
 			<li class="list-row items-center">
 				<User />
 				{player.name}
-				<button
-					class="btn btn-square btn-sm btn-error btn-soft"
-					on:click={() => removePlayer(player.name)}
-				>
-					<X />
-				</button>
+				<div>
+					<button class="btn btn-square btn-sm">
+						<Settings2 />
+					</button>
+					<button
+						class="btn btn-square btn-sm btn-error btn-soft"
+						on:click={() => removePlayer(player.name)}
+					>
+						<X />
+					</button>
+				</div>
 			</li>
 		{/each}
 	</ul>

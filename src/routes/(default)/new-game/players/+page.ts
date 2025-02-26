@@ -1,5 +1,5 @@
 import { ActionType, type PageData } from '$lib/models/page-data';
-import { ArrowRight, House } from 'lucide-svelte';
+import { ArrowRight } from 'lucide-svelte';
 
 export function load(): PageData {
 	return {
@@ -7,7 +7,6 @@ export function load(): PageData {
 		breadcrumbs: ['New Game'],
 		useBackButton: true,
 		backButtonUrl: '/',
-		backButtonIcon: House,
 		actions: [
 			{
 				type: ActionType.Button,
