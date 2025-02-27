@@ -8,8 +8,6 @@ body {
 	--color-primary-content: var(--color-base-100);
 	--color-secondary-content: var(--color-base-100);
 	--color-accent-content: var(--color-base-100);
-	/* --color-info-content: var(--color-base-100); */
-	/* --color-success-content: var(--color-base-100); */
 	--color-error-content: var(--color-base-100);
 
 	font-family: 'Space Grotesk';

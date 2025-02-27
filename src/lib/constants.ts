@@ -1,6 +1,6 @@
 import { Beer, Eye, Gitlab, HeartCrack, Stethoscope, Swords, User, Wand } from "lucide-svelte";
 import { RoleType, Team, type Role } from "./models/role";
-import type { Setting } from "./models/setting";
+import type { Setting } from "./models/settings";
 
 export const ROLES: Role[] = [
     { // standard roles

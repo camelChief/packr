@@ -5,3 +5,7 @@ export interface Setting {
     type: 'boolean' | 'number' | 'string';
     default: boolean | number | string;
 }
+
+export type Settings = {
+    [key: string]: boolean | number | string;
+}

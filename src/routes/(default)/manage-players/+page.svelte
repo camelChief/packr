@@ -50,10 +50,10 @@
 	</main>
 {:else}
 	<!-- todo: upgrade this with an image -->
-	<div class="no-players">
+	<p class="no-players">
 		No players found!
 		<br />Use the + button below to add players.
-	</div>
+	</p>
 {/if}
 
 <!-- todo: make modal display without hiding behind text -->

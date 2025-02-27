@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
 	import { ROLES } from "$lib/constants";
-	import { Status } from "$lib/models/game";
+	import { GameStatus } from "$lib/models/game";
 	import { RoleType, Team, type Role } from "$lib/models/role";
 	import { getGames } from "$lib/services/game-service";
 	import { eventStore } from "$lib/stores";
@@ -51,7 +51,7 @@
 
     async function calculateWerewolves() {
         const games = await getGames();
-        const draftGame = games.find(game => game.status === Status.Draft);
+        const draftGame = games.find(game => game.status === GameStatus.Draft);
         playerCount = draftGame?.players.length || 0;
         if (playerCount <= 15) recommendedWerewolves = 2;
         else if (playerCount === 16) recommendedWerewolves = 3;
