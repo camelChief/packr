@@ -10,7 +10,6 @@ export async function createPlayer(player: string) {
 export async function getPlayers() {
 	const db = await getDatabase();
 	return await db.getAll('players');
-	
 }
 
 export async function countPlayers() {

@@ -26,7 +26,7 @@
 				const games = await getGames();
 				const draftGame = games.find((game) => game.status === GameStatus.Draft);
 				if (draftGame) {
-					draftGame.players = selectedPlayers.map(p => ({ player: p }));
+					draftGame.players = selectedPlayers.map((p) => ({ player: p }));
 					await updateGame(draftGame);
 				} else {
 					// create new game
@@ -89,10 +89,9 @@
 
 {#if players?.length}
 	<p class="mb-8">
-		Select at least 7 and at most 35 players to be involved in this
-		game of Werewolf.
+		Select at least 7 and at most 35 players to be involved in this game of Werewolf.
 	</p>
-	<ul class="list rounded-box border-1 border-base-content/10">
+	<ul class="list rounded-box border-base-content/10 border-1">
 		<button onclick={selectAll} class="list-row select-all">
 			{#if selectedPlayers.length === players.length}
 				<SquareCheck />
@@ -116,7 +115,7 @@
 					<div class="opacity-25">
 						<Square />
 					</div>
-					<span class="opacity-25">{player}</span>	
+					<span class="opacity-25">{player}</span>
 				{/if}
 			</button>
 		{/each}

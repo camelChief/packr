@@ -18,4 +18,4 @@ export const load: PageLoad = () => {
 	};
 
 	return pageData;
-}
+};

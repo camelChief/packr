@@ -32,8 +32,11 @@
 
 {#if players?.length}
 	<main>
-		<p class="pb-8">Add players here to save them for easy inclusion in future games. All data is saved locally to your device.</p>
-		<ul class="list rounded-box border-1 border-base-content/10">
+		<p class="pb-8">
+			Add players here to save them for easy inclusion in future games. All data is saved locally to
+			your device.
+		</p>
+		<ul class="list rounded-box border-base-content/10 border-1">
 			{#each players as player}
 				<li class="list-row items-center">
 					<User />
@@ -64,12 +67,7 @@
 		<div class="flex flex-col gap-4 py-8">
 			<label class="floating-label">
 				<span>Name</span>
-				<input
-					type="text"
-					placeholder="Name"
-					bind:value={newPlayer}
-					class="input w-full"
-				/>
+				<input type="text" placeholder="Name" bind:value={newPlayer} class="input w-full" />
 			</label>
 		</div>
 		<div class="modal-action">

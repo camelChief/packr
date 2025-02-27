@@ -1,17 +1,17 @@
 export enum RoleType {
-    Standard,
-    Special
+	Standard,
+	Special
 }
 
 export enum Team {
-    Villager,
-    Werewolf
+	Villager,
+	Werewolf
 }
 
 export interface Role {
-    name: string;
-    icon: any;
-    type: RoleType;
-    team: Team;
-    required?: boolean;
+	name: string;
+	icon: any;
+	type: RoleType;
+	team: Team;
+	required?: boolean;
 }

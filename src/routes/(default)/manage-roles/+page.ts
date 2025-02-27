@@ -1,9 +1,9 @@
-import type { PageData } from "$lib/models/page-data";
+import type { PageData } from '$lib/models/page-data';
 
 export function load(): PageData {
-    return {
-        title: "Manage Roles",
-        useBackButton: true,
-        backButtonUrl: '/',
-    }
+	return {
+		title: 'Manage Roles',
+		useBackButton: true,
+		backButtonUrl: '/'
+	};
 }

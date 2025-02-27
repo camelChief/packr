@@ -12,7 +12,7 @@ export function load(): PageData {
 				type: ActionType.Button,
 				reference: 'nextPage',
 				icon: ArrowRight,
-				class: 'btn-primary',
+				class: 'btn-primary'
 			}
 		]
 	};

@@ -22,7 +22,7 @@
 		}
 
 		const playerCount = draftGame.players.length;
-		const missingRoles = draftGame.players.some(p => !p.role);
+		const missingRoles = draftGame.players.some((p) => !p.role);
 
 		if (playerCount < 7 || playerCount > 35) goto('/new-game/players');
 		else if (missingRoles) goto('/new-game/roles');
@@ -72,7 +72,10 @@
 <dialog id="draftGameModal" class="modal">
 	<div class="modal-box p-8">
 		<h3>Draft Game</h3>
-		<p>It looks like you were in the middle of setting up a game. Would you like to continue with your draft or discard and start a new game?</p>
+		<p>
+			It looks like you were in the middle of setting up a game. Would you like to continue with
+			your draft or discard and start a new game?
+		</p>
 		<div class="modal-action">
 			<form method="dialog">
 				<button class="btn btn-square">
