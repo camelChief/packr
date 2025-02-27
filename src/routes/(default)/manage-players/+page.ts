@@ -1,9 +1,9 @@
 import { ActionType, type PageData } from '$lib/models/page-data';
 import { Plus } from 'lucide-svelte';
+import type { PageLoad } from './$types';
 
-// todo: type this
-export function load(): PageData {
-	return {
+export const load: PageLoad = () => {
+	const pageData: PageData = {
 		title: 'Manage Players',
 		useBackButton: true,
 		backButtonUrl: '/',
@@ -16,4 +16,6 @@ export function load(): PageData {
 			}
 		]
 	};
+
+	return pageData;
 }

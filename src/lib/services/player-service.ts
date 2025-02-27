@@ -1,17 +1,16 @@
-import { Player } from '$lib/models/player';
 import { getDatabase } from './idb-service';
 
 // create
-export async function createPlayer(player: Player) {
+export async function createPlayer(player: string) {
 	const db = await getDatabase();
-	await db.add('players', player.toObj());
+	await db.add('players', player, player);
 }
 
 // read
 export async function getPlayers() {
 	const db = await getDatabase();
-	const players = await db.getAll('players');
-	return players.map(Player.fromObj);
+	return await db.getAll('players');
+	
 }
 
 export async function countPlayers() {
@@ -20,7 +19,7 @@ export async function countPlayers() {
 }
 
 // delete
-export async function deletePlayer(name: string) {
+export async function deletePlayer(player: string) {
 	const db = await getDatabase();
-	await db.delete('players', name);
+	await db.delete('players', player);
 }

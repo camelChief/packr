@@ -1,13 +1,23 @@
 <script lang="ts">
-	import { Player } from '$lib/models/player';
 	import { createPlayer, deletePlayer, getPlayers } from '$lib/services/player-service';
 	import { eventStore } from '$lib/stores';
-	import { ArrowLeft, Pencil, PencilRuler, Save, Settings2, User, X } from 'lucide-svelte';
+	import { ArrowLeft, Plus, User, X } from 'lucide-svelte';
 	import { onMount } from 'svelte';
 
-	let players: Player[];
-	let newPlayerName = '';
-	let newPlayerBlacklist = '';
+	let players: string[] = [];
+	let newPlayer = '';
+
+	async function addPlayer() {
+		await createPlayer(newPlayer);
+		players = [...players, newPlayer].sort();
+		newPlayer = '';
+		addPlayerModal.close();
+	}
+
+	async function removePlayer(player: string) {
+		await deletePlayer(player);
+		players = players.filter((p) => p !== player);
+	}
 
 	onMount(async () => {
 		players = await getPlayers();
@@ -18,92 +28,66 @@
 			}
 		});
 	});
-
-	async function createNewPlayer() {
-		const blacklist = newPlayerBlacklist.split(',');
-		const newPlayer = new Player(newPlayerName, blacklist);
-		await createPlayer(newPlayer);
-		players = [...players, newPlayer];
-
-		newPlayerName = '';
-		newPlayerBlacklist = '';
-		addPlayerModal.close();
-	}
-
-	async function removePlayer(name: string) {
-		await deletePlayer(name);
-		players = await getPlayers();
-	}
 </script>
 
 {#if players?.length}
-	<ul class="list">
-		{#each players as player}
-			<li class="list-row items-center">
-				<User />
-				{player.name}
-				<div>
-					<button class="btn btn-square btn-sm">
-						<Settings2 />
-					</button>
+	<main>
+		<p class="pb-8">Add players here to save them for easy inclusion in future games. All data is saved locally to your device.</p>
+		<ul class="list rounded-box border-1 border-base-content/10">
+			{#each players as player}
+				<li class="list-row items-center">
+					<User />
+					{player}
 					<button
+						onclick={() => removePlayer(player)}
 						class="btn btn-square btn-sm btn-error btn-soft"
-						on:click={() => removePlayer(player.name)}
 					>
 						<X />
 					</button>
-				</div>
-			</li>
-		{/each}
-	</ul>
+				</li>
+			{/each}
+		</ul>
+	</main>
 {:else}
-	<!-- todo: upgrade this with an image :) -->
-	<div class="empty">
+	<!-- todo: upgrade this with an image -->
+	<div class="no-players">
 		No players found!
 		<br />Use the + button below to add players.
 	</div>
 {/if}
 
-<!-- todo: deal with this -->
-<dialog id="addPlayerModal" class="modal">
+<!-- todo: make modal display without hiding behind text -->
+<!-- and without needing to set it to modal-top -->
+<dialog id="addPlayerModal" class="modal modal-top">
 	<div class="modal-box p-8">
 		<h3>Add Player</h3>
 		<div class="flex flex-col gap-4 py-8">
 			<label class="floating-label">
-				<span>Name *</span>
+				<span>Name</span>
 				<input
 					type="text"
-					placeholder="Name*"
-					class="input input-lg w-full"
-					bind:value={newPlayerName}
-				/>
-			</label>
-			<label class="floating-label">
-				<span>Blacklist roles</span>
-				<input
-					type="text"
-					placeholder="Blacklist roles"
-					class="input input-lg w-full"
-					bind:value={newPlayerBlacklist}
+					placeholder="Name"
+					bind:value={newPlayer}
+					class="input w-full"
 				/>
 			</label>
 		</div>
 		<div class="modal-action">
 			<form method="dialog">
-				<button class="btn btn-square btn-lg">
+				<button class="btn btn-square">
 					<ArrowLeft />
 				</button>
 			</form>
 
-			<button class="btn btn-primary btn-square btn-lg" on:click={createNewPlayer}>
-				<Save />
+			<button onclick={addPlayer} class="btn btn-square btn-success">
+				<Plus />
 			</button>
 		</div>
 	</div>
 </dialog>
 
 <style>
-	.empty {
+	.no-players {
 		align-items: center;
 		display: flex;
 		height: 100%;

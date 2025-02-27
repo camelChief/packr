@@ -4,52 +4,30 @@
 	import { createGame, getGames, updateGame } from '$lib/services/game-service';
 	import { getPlayers } from '$lib/services/player-service';
 	import { eventStore, validationStore } from '$lib/stores';
-	import { Square, SquareCheck, SquareDot, SquareMinus, UserSquare } from 'lucide-svelte';
+	import { Square, SquareCheck, SquareDot, UserSquare } from 'lucide-svelte';
 	import { onDestroy, onMount } from 'svelte';
 	import type { Unsubscriber } from 'svelte/store';
 
-	let names: string[] = [];
-	let selectedNames: string[] = [];
+	let players: string[] = [];
+	let selectedPlayers: string[] = [];
 	let unsubscribeFromEvents: Unsubscriber;
-
-	function selectAll() {
-		if (selectedNames.length > 0) selectedNames = [];
-		else selectedNames = names;
-		validate();
-	}
-
-	function select(name: string) {
-		if (selectedNames.includes(name)) selectedNames = selectedNames.filter((s) => s !== name);
-		else selectedNames = [...selectedNames, name];
-		validate();
-	}
-
-	function validate() {
-		const count = selectedNames.length;
-		if (count < 7 || count > 35) {
-			validationStore.update((v) => v.filter((v) => v !== 'validPlayerCount'));
-		} else {
-			validationStore.update((v) => {
-				if (v.includes('validPlayerCount')) return v;
-				return [...v, 'validPlayerCount'];
-			});
-		}
-	}
 
 	function subscribeToEvents() {
 		unsubscribeFromEvents = eventStore.subscribe(async (event) => {
 			if (event === 'nextPage') {
 				eventStore.set('');
 
+				// todo: fix this up to use a store to manage
+				// drafting a game across multiple pages
 				const games = await getGames();
 				const draftGame = games.find((game) => game.status === Status.Draft);
 				if (draftGame) {
-					draftGame.players = selectedNames;
+					draftGame.players = selectedPlayers;
 					await updateGame(draftGame);
 				} else {
 					// create new game
 					const id = new Date().getTime();
-					const game = new Game(id, selectedNames);
+					const game = new Game(id, selectedPlayers);
 					await createGame(game);
 				}
 
@@ -59,12 +37,41 @@
 		});
 	}
 
+	// todo: fix this up to use a store
 	async function populateNames() {
-		const players = await getPlayers();
-		names = players.map((player) => player.name);
+		players = await getPlayers();
 		const games = await getGames();
 		const draftGame = games.find((game) => game.status === Status.Draft);
-		selectedNames = draftGame?.players ?? [];
+		selectedPlayers = draftGame?.players ?? [];
+	}
+
+	function selectAll() {
+		if (selectedPlayers.length > 0) selectedPlayers = [];
+		else selectedPlayers = players;
+		validate();
+	}
+
+	function select(player: string) {
+		if (!selectedPlayers.includes(player)) {
+			selectedPlayers = selectedPlayers.filter((p) => p !== player);
+		} else {
+			selectedPlayers = [...selectedPlayers, player];
+		}
+		validate();
+	}
+
+	function validate() {
+		const count = selectedPlayers.length;
+		if (count < 7 || count > 35) {
+			validationStore.update((v) => {
+				return v.filter((v) => v !== 'validPlayerCount');
+			});
+		} else {
+			validationStore.update((v) => {
+				if (v.includes('validPlayerCount')) return v;
+				return [...v, 'validPlayerCount'];
+			});
+		}
 	}
 
 	onMount(async () => {
@@ -74,18 +81,22 @@
 	});
 
 	onDestroy(() => unsubscribeFromEvents());
+
+	// continue: from here
+	// have dealt with all ts, need to comb through html
+	// continue through standard flow of app to create game
 </script>
 
-{#if names?.length}
+{#if players?.length}
 	<p class="mb-8">
 		Select at least 7 and at most 35 players to be involved in this
 		game of Werewolf.
 	</p>
 	<ul class="list rounded-box border-1 border-base-content/10">
 		<button onclick={selectAll} class="p-4 flex items-center gap-4 font-bold">
-			{#if selectedNames.length === names.length}
+			{#if selectedPlayers.length === players.length}
 				<SquareCheck />
-			{:else if selectedNames.length > 0}
+			{:else if selectedPlayers.length > 0}
 				<div class="opacity-50">
 					<SquareDot />
 				</div>
@@ -94,11 +105,11 @@
 					<Square />
 				</div>
 			{/if}
-			{selectedNames.length} selected
+			{selectedPlayers.length} selected
 		</button>
-		{#each names as name}
+		{#each players as name}
 			<button onclick={() => select(name)} class="list-row">
-				{#if selectedNames.includes(name)}
+				{#if selectedPlayers.includes(name)}
 					<UserSquare />
 					{name}
 				{:else}

@@ -1,10 +1,10 @@
 import { openDB } from 'idb';
 
 export async function getDatabase() {
-	return openDB('packr', 3, {
+	return openDB('packr', 6, {
 		upgrade(db) {
 			if (!db.objectStoreNames.contains('players')) {
-				db.createObjectStore('players', { keyPath: 'name' });
+				db.createObjectStore('players');
 			}
 
 			if (!db.objectStoreNames.contains('games')) {
