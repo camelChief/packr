@@ -1,52 +1,28 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { Game, GameStatus } from '$lib/models/game';
-	import { createGame, getGames, updateGame } from '$lib/services/game-service';
+	import { Game } from '$lib/models/game';
+	import { updateGame } from '$lib/services/game-service';
 	import { getPlayers } from '$lib/services/player-service';
-	import { eventStore, validationStore } from '$lib/stores';
+	import { draftGameStore, eventStore, validationStore } from '$lib/stores';
 	import { Square, SquareCheck, SquareDot, UserSquare } from 'lucide-svelte';
 	import { onDestroy, onMount } from 'svelte';
-	import type { Unsubscriber } from 'svelte/store';
+	import { get, type Unsubscriber } from 'svelte/store';
 
+	let draftGame: Game;
 	let players: string[] = [];
 	let selectedPlayers: string[] = [];
 	let unsubscribeFromEvents: Unsubscriber;
-
-	// continue: sort out the conversion from PlayerRolePair
-	// to string (player) for the selectedPlayers array
-	// and then back to PlayerRolePair for the game object
 
 	function subscribeToEvents() {
 		unsubscribeFromEvents = eventStore.subscribe(async (event) => {
 			if (event === 'nextPage') {
 				eventStore.set('');
-
-				// todo: fix this up to use a store to manage
-				// drafting a game across multiple pages
-				const games = await getGames();
-				const draftGame = games.find((game) => game.status === GameStatus.Draft);
-				if (draftGame) {
-					draftGame.players = selectedPlayers.map((p) => ({ player: p }));
-					await updateGame(draftGame);
-				} else {
-					// create new game
-					const playerRolePairs = selectedPlayers.map((p) => ({ player: p }));
-					const game = new Game({ players: playerRolePairs });
-					await createGame(game);
-				}
-
-				// navigate to next page
+				draftGame.players = selectedPlayers.map((p) => ({ player: p }));
+				await updateGame(draftGame);
+				draftGameStore.set(draftGame);
 				goto('/new-game/roles');
 			}
 		});
-	}
-
-	// todo: fix this up to use a store
-	async function populateNames() {
-		players = await getPlayers();
-		// const games = await getGames();
-		// const draftGame = games.find((game) => game.status === GameStatus.Draft);
-		// selectedPlayers = draftGame?.players ?? [];
 	}
 
 	function selectAll() {
@@ -79,8 +55,13 @@
 	}
 
 	onMount(async () => {
+		const game = get(draftGameStore);
+		if (game) draftGame = game;
+		else return goto('/');
+
+		players = await getPlayers();
+		selectedPlayers = draftGame.players.map((p) => p.player);
 		subscribeToEvents();
-		await populateNames();
 		validate();
 	});
 

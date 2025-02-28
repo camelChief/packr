@@ -1,3 +1,5 @@
+<!-- todo: check over this file -->
+
 <script lang="ts">
 	import { page } from '$app/state';
 	import { ActionType } from '$lib/models/page-data';
@@ -8,13 +10,13 @@
 
 	let { children } = $props();
 	let validations: string[] = $state([]);
-	let unsubscribeValidations: Unsubscriber;
+	let unsubscribeFromValidations: Unsubscriber;
 
 	onMount(() => {
-		unsubscribeValidations = validationStore.subscribe((v) => (validations = v));
+		unsubscribeFromValidations = validationStore.subscribe((v) => (validations = v));
 	});
 
-	onDestroy(() => unsubscribeValidations());
+	onDestroy(() => unsubscribeFromValidations());
 </script>
 
 <main class="column">

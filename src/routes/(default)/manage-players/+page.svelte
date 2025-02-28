@@ -61,15 +61,13 @@
 
 <!-- todo: make modal display without hiding behind text -->
 <!-- and without needing to set it to modal-top -->
-<dialog id="addPlayerModal" class="modal modal-top">
+<dialog id="addPlayerModal" class="modal">
 	<div class="modal-box p-8">
 		<h3>Add Player</h3>
-		<div class="flex flex-col gap-4 py-8">
-			<label class="floating-label">
-				<span>Name</span>
-				<input type="text" placeholder="Name" bind:value={newPlayer} class="input w-full" />
-			</label>
-		</div>
+		<label class="floating-label my-8">
+			<span>Name</span>
+			<input type="text" placeholder="Name" bind:value={newPlayer} class="input w-full" />
+		</label>
 		<div class="modal-action">
 			<form method="dialog">
 				<button class="btn btn-square">

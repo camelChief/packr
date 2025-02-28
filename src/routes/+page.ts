@@ -1,6 +1,7 @@
 import { redirect } from '@sveltejs/kit';
+import type { PageLoad } from './$types';
 
-export function load() {
+export const load: PageLoad = () => {
 	let isFirstVisit = !localStorage.getItem('visited');
 	if (isFirstVisit) redirect(303, '/new');
 }
