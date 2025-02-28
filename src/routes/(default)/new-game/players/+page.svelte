@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 	import { Game } from '$lib/models/game';
 	import { updateGame } from '$lib/services/game-service';
 	import { getPlayers } from '$lib/services/player-service';
@@ -107,7 +108,7 @@
 		<p class="text-center">
 			No players found!
 			<br />Add players from the
-			<a href="/manage-players" class="link">Manage Players</a>
+			<a href="{base}/manage-players" class="link">Manage Players</a>
 			screen.
 		</p>
 	</div>
