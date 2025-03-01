@@ -9,7 +9,7 @@
 		Packr
 	</h1>
 	<p class="description">A local-first tool for managing in-person games of Werewolf.</p>
-	<a href="/{base}" class="btn btn-primary btn-lg">Get Started</a>
+	<a href="{base}" class="btn btn-primary btn-lg">Get Started</a>
 </main>
 
 <style>

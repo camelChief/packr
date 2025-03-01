@@ -21,7 +21,7 @@
 				draftGame.players = selectedPlayers.map((p) => ({ player: p }));
 				await updateGame(draftGame);
 				draftGameStore.set(draftGame);
-				goto(`/${base}/new-game/roles`);
+				goto(`${base}/new-game/roles`);
 			}
 		});
 	}
@@ -58,7 +58,7 @@
 	onMount(async () => {
 		const game = get(draftGameStore);
 		if (game) draftGame = game;
-		else return goto(`/${base}`);
+		else return goto(`${base}`);
 
 		players = await getPlayers();
 		selectedPlayers = draftGame.players.map((p) => p.player);
@@ -108,7 +108,7 @@
 		<p class="text-center">
 			No players found!
 			<br />Add players from the
-			<a href="/{base}/manage-players" class="link">Manage Players</a>
+			<a href="{base}/manage-players" class="link">Manage Players</a>
 			screen.
 		</p>
 	</div>

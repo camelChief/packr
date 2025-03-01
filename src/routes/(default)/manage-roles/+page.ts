@@ -6,7 +6,7 @@ export const load: PageLoad = () => {
 	const pageData: PageData = {
 		title: 'Manage Roles',
 		useBackButton: true,
-		backButtonUrl: `/${base}`
+		backButtonUrl: `${base}`
 	};
 
 	return pageData;

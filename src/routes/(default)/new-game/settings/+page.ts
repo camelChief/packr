@@ -8,7 +8,7 @@ export const load: PageLoad = () => {
 		title: 'Game Settings',
 		breadcrumbs: ['New Game'],
 		useBackButton: true,
-		backButtonUrl: `/${base}/new-game/roles`,
+		backButtonUrl: `${base}/new-game/roles`,
 		actions: [
 			{
 				type: ActionType.Button,

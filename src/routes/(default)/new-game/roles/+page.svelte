@@ -29,7 +29,7 @@
 				assignRoles();
 				await updateGame(draftGame);
 				draftGameStore.set(draftGame);
-				goto(`/${base}/new-game/settings`);
+				goto(`${base}/new-game/settings`);
 			}
 		});
 	}
@@ -82,7 +82,7 @@
 	onMount(() => {
 		const game = get(draftGameStore);
 		if (game) draftGame = game;
-		else return goto(`/${base}`);
+		else return goto(`${base}`);
 
 		subscribeToEvents();
 		populateRoles();

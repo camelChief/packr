@@ -32,7 +32,7 @@
 				// }
 
 				// navigate to next page
-				goto(`/${base}/game/1`);
+				goto(`${base}/game/1`);
 			}
 		});
 	}

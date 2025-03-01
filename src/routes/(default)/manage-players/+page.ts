@@ -7,7 +7,7 @@ export const load: PageLoad = () => {
 	const pageData: PageData = {
 		title: 'Manage Players',
 		useBackButton: true,
-		backButtonUrl: `/${base}`,
+		backButtonUrl: `${base}`,
 		actions: [
 			{
 				type: ActionType.Button,

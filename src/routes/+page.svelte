@@ -17,16 +17,16 @@
 	async function editDraftGame() {
 		const draftGame = await getDraftGame();
 		if (!draftGame) {
-			goto(`/${base}/new-game`);
+			goto(`${base}/new-game`);
 			return;
 		}
 
 		const playerCount = draftGame.players.length;
 		const missingRoles = draftGame.players.some((p) => !p.role);
 
-		if (playerCount < 7 || playerCount > 35) goto(`/${base}/new-game/players`);
-		else if (missingRoles) goto(`/${base}/new-game/roles`);
-		else if (!draftGame.settings.length) goto(`/${base}/new-game/settings`);
+		if (playerCount < 7 || playerCount > 35) goto(`${base}/new-game/players`);
+		else if (missingRoles) goto(`${base}/new-game/roles`);
+		else if (!draftGame.settings.length) goto(`${base}/new-game/settings`);
 	}
 
 	async function createNewGame() {
@@ -35,7 +35,7 @@
 		const newGame = new Game({});
 		await createGame(newGame);
 		draftGameStore.set(newGame);
-		goto(`/${base}/new-game`);
+		goto(`${base}/new-game`);
 	}
 
 	async function getDraftGame() {
@@ -55,15 +55,15 @@
 		<Swords />
 		New Game
 	</button>
-	<a href="/{base}/manage-players" class="btn btn-lg">
+	<a href="{base}/manage-players" class="btn btn-lg">
 		<Users />
 		Manage Players
 	</a>
-	<a href="/{base}/manage-roles" class="btn btn-lg">
+	<a href="{base}/manage-roles" class="btn btn-lg">
 		<Drama />
 		Manage Roles
 	</a>
-	<a href="/{base}/settings" class="btn btn-lg">
+	<a href="{base}/settings" class="btn btn-lg">
 		<Settings />
 		Settings
 	</a>
