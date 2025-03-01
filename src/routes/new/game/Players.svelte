@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
 	import { createPlayer, getPlayers, deletePlayer } from '$lib/services/idb-serviceb-service';
 	import { Player } from '$lib/models';
 	import { ArrowLeft, CircleUser, Plus, Save, X } from 'lucide-svelte';
@@ -35,7 +35,7 @@
 
 <main>
 	<ul class="list bg-base-100">
-		<!-- shadow-md rounded-box"> -->
+		shadow-md rounded-box">
 		{#each players as player}
 			<li class="list-row items-center">
 				<CircleUser />
@@ -47,9 +47,9 @@
 		{/each}
 	</ul>
 
-	<!-- <button on:click={addPlayerModal.showModal()} id="add-player" class="btn btn-primary btn-square btn-lg">
+	<button on:click={addPlayerModal.showModal()} id="add-player" class="btn btn-primary btn-square btn-lg">
         <Plus />
-    </button> -->
+    </button>
 </main>
 
 <dialog id="addPlayerModal" class="modal modal-bottom">
@@ -100,4 +100,4 @@
 		position: absolute;
 		right: 0;
 	}
-</style>
+</style> -->
