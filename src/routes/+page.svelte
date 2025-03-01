@@ -4,7 +4,7 @@
 	import { Game, GameStatus } from '$lib/models/game';
 	import { createGame, deleteGame, getGames } from '$lib/services/game-service';
 	import { draftGameStore } from '$lib/stores';
-	import { ArrowLeft, Drama, Gitlab, Settings, Swords, Users } from 'lucide-svelte';
+	import { ArrowLeft, Drama, Package, Settings, Swords, Users } from 'lucide-svelte';
 
 	let draftGame: Game | null = null;
 
@@ -48,7 +48,7 @@
 
 <main class="column">
 	<h3 class="logo">
-		<Gitlab strokeWidth={3} />
+		<Package strokeWidth={3} />
 		Packr
 	</h3>
 	<button onclick={newGame} class="btn btn-lg btn-primary">

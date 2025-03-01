@@ -5,7 +5,7 @@
 	import { page } from '$app/state';
 	import { ActionType } from '$lib/models/page-data';
 	import { eventStore, validationStore } from '$lib/stores';
-	import { ArrowLeft, Gitlab, MoveRight } from 'lucide-svelte';
+	import { ArrowLeft, MoveRight, Package } from 'lucide-svelte';
 	import { onDestroy, onMount } from 'svelte';
 	import type { Unsubscriber } from 'svelte/store';
 
@@ -24,7 +24,7 @@
 	<section class="top-bar border-base-content/10">
 		<div class="breadcrumb">
 			<a href="{base}" class="logo">
-				<Gitlab size={16} strokeWidth={3} />
+				<Package size={16} strokeWidth={3} />
 				Packr
 			</a>
 			{#each page.data.breadcrumbs as crumb}
