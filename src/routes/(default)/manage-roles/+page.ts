@@ -1,12 +1,9 @@
 import type { PageData } from '$lib/models/page-data';
-import type { PageLoad } from './$types';
 
-export const load: PageLoad = () => {
-	const pageData: PageData = {
+export function load(): PageData {
+	return {
 		title: 'Manage Roles',
 		useBackButton: true,
 		backButtonUrl: '/'
 	};
-
-	return pageData;
 }

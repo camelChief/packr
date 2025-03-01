@@ -1,15 +1,8 @@
 import { ActionType, type PageData } from '$lib/models/page-data';
-import { draftGameStore } from '$lib/stores';
-import { redirect } from '@sveltejs/kit';
 import { ArrowRight } from 'lucide-svelte';
-import { get } from 'svelte/store';
-import type { PageLoad } from './$types';
 
-export const load: PageLoad = () => {
-	const draftGame = get(draftGameStore);
-	if (!draftGame || !draftGame.players.length) redirect(302, '/');
-	
-	const pageData: PageData = {
+export function load(): PageData {
+	return {
 		title: 'Select Roles',
 		breadcrumbs: ['New Game'],
 		useBackButton: true,
@@ -23,6 +16,4 @@ export const load: PageLoad = () => {
 			}
 		]
 	};
-
-	return pageData;
 }

@@ -1,14 +1,8 @@
 import { ActionType, type PageData } from '$lib/models/page-data';
-import { draftGameStore } from '$lib/stores';
-import { redirect } from '@sveltejs/kit';
 import { ArrowRight } from 'lucide-svelte';
-import { get } from 'svelte/store';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = () => {
-	const draftGame = get(draftGameStore);
-	if (!draftGame) redirect(302, '/');
-
 	const pageData: PageData = {
 		title: 'Select Players',
 		breadcrumbs: ['New Game'],

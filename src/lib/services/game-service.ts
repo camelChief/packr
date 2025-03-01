@@ -5,7 +5,6 @@ import { getDatabase } from './idb-service';
 export async function createGame(game: Game) {
 	const db = await getDatabase();
 	await db.add('games', game.toObj());
-
 }
 
 // read

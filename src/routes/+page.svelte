@@ -2,15 +2,16 @@
 	import { goto } from '$app/navigation';
 	import { Game, GameStatus } from '$lib/models/game';
 	import { createGame, deleteGame, getGames } from '$lib/services/game-service';
-	import { draftGameStore } from '$lib/stores';
 	import { ArrowLeft, Drama, Gitlab, Settings, Swords, Users } from 'lucide-svelte';
-
-	let draftGame: Game | null = null;
 
 	async function newGame() {
 		const draftGame = await getDraftGame();
-		if (draftGame?.players?.length) draftGameModal.showModal();
-		else createNewGame();
+		if (draftGame) {
+			draftGameModal.showModal();
+		} else {
+			await createGame(new Game({}));
+			goto('/new-game');
+		}
 	}
 
 	async function editDraftGame() {
@@ -25,23 +26,23 @@
 
 		if (playerCount < 7 || playerCount > 35) goto('/new-game/players');
 		else if (missingRoles) goto('/new-game/roles');
-		else if (!draftGame.settings.length) goto('/new-game/settings');
+		// todo: add more checks here
+		// continue: now go through the rest of the game setup
+		// to make sure the game obj in the db is being updated
+		// correctly and utilising a store!
+		else goto('/new-game');
 	}
 
 	async function createNewGame() {
 		const draftGame = await getDraftGame();
 		if (draftGame) await deleteGame(draftGame.id);
-		const newGame = new Game({});
-		await createGame(newGame);
-		draftGameStore.set(newGame);
+		await createGame(new Game({}));
 		goto('/new-game');
 	}
 
 	async function getDraftGame() {
-		if (draftGame) return draftGame;
 		const games = await getGames();
-		draftGame = games.find((g) => g.status === GameStatus.Draft) ?? null;
-		return draftGame;
+		return games.find((g) => g.status === GameStatus.Draft);
 	}
 </script>
 
@@ -70,7 +71,7 @@
 
 <dialog id="draftGameModal" class="modal">
 	<div class="modal-box p-8">
-		<h3 class="mb-4">Draft Game</h3>
+		<h3>Draft Game</h3>
 		<p>
 			It looks like you were in the middle of setting up a game. Would you like to continue with
 			your draft or discard and start a new game?

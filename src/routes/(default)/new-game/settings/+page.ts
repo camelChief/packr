@@ -1,9 +1,8 @@
 import { ActionType, type PageData } from '$lib/models/page-data';
 import { Swords } from 'lucide-svelte';
-import type { PageLoad } from './$types';
 
-export const load: PageLoad = () => {
-	const pageData: PageData = {
+export function load(): PageData {
+	return {
 		title: 'Game Settings',
 		breadcrumbs: ['New Game'],
 		useBackButton: true,
@@ -17,6 +16,4 @@ export const load: PageLoad = () => {
 			}
 		]
 	};
-
-	return pageData;
 }
