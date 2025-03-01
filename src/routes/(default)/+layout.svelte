@@ -1,7 +1,6 @@
 <!-- todo: check over this file -->
 
 <script lang="ts">
-	import { base } from '$app/paths';
 	import { page } from '$app/state';
 	import { ActionType } from '$lib/models/page-data';
 	import { eventStore, validationStore } from '$lib/stores';
@@ -23,7 +22,7 @@
 <main class="column">
 	<section class="top-bar border-base-content/10">
 		<div class="breadcrumb">
-			<a href="{base}/" class="logo">
+			<a href="/" class="logo">
 				<Gitlab size={16} strokeWidth={3} />
 				Packr
 			</a>

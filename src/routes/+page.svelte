@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { base } from '$app/paths';
 	import { Game, GameStatus } from '$lib/models/game';
 	import { createGame, deleteGame, getGames } from '$lib/services/game-service';
 	import { draftGameStore } from '$lib/stores';
@@ -55,15 +54,15 @@
 		<Swords />
 		New Game
 	</button>
-	<a href="{base}/manage-players" class="btn btn-lg">
+	<a href="/manage-players" class="btn btn-lg">
 		<Users />
 		Manage Players
 	</a>
-	<a href="{base}/manage-roles" class="btn btn-lg">
+	<a href="/manage-roles" class="btn btn-lg">
 		<Drama />
 		Manage Roles
 	</a>
-	<a href="{base}/settings" class="btn btn-lg">
+	<a href="/settings" class="btn btn-lg">
 		<Settings />
 		Settings
 	</a>

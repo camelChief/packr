@@ -107,7 +107,7 @@
 		<p class="text-center">
 			No players found!
 			<br />Add players from the
-			<a href="{base}/manage-players" class="link">Manage Players</a>
+			<a href="/manage-players" class="link">Manage Players</a>
 			screen.
 		</p>
 	</div>

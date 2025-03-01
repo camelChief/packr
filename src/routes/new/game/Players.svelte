@@ -24,8 +24,8 @@
 	}
 
 	async function deletePlayer(name: string) {
-		// await deletePlayer(name);
-		// players = await getPlayers();
+		await deletePlayer(name);
+		players = await getPlayers();
 	}
 
 	function add() {
