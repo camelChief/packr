@@ -60,7 +60,7 @@ const deploy = () => {
     console.log('Committing and pushing changes to the publish branch...');
     runCommand('git add .');
     runCommand('git commit -m "Deploy to GitHub Pages"');
-    runCommand('git push origin publish');
+    runCommand('git push --force origin publish');
 
     console.log('Switching back to the master branch...');
     runCommand('git checkout master');
