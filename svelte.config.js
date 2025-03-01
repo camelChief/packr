@@ -7,7 +7,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 const config = {
 	preprocess: vitePreprocess(),
 	kit: {
-		adapter: adapter({ fallback: '404.html' }),
+		adapter: adapter({ fallback: 'index.html' }),
 		paths: { base: isProduction ? '/packr' : '' }
 	}
 };
