@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 	import { Plus } from 'lucide-svelte';
 	import Intro from './Intro.svelte';
 	import Players from './Players.svelte';
@@ -29,7 +30,7 @@
 	let page = $derived(pages[pageIndex]);
 
 	function back() {
-		if (pageIndex === 0) goto('/');
+		if (pageIndex === 0) goto(`/${base}`);
 		else pageIndex--;
 	}
 

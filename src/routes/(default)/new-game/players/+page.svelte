@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 	import { Game } from '$lib/models/game';
 	import { updateGame } from '$lib/services/game-service';
 	import { getPlayers } from '$lib/services/player-service';
@@ -20,7 +21,7 @@
 				draftGame.players = selectedPlayers.map((p) => ({ player: p }));
 				await updateGame(draftGame);
 				draftGameStore.set(draftGame);
-				goto('/new-game/roles');
+				goto(`/${base}/new-game/roles`);
 			}
 		});
 	}
@@ -57,7 +58,7 @@
 	onMount(async () => {
 		const game = get(draftGameStore);
 		if (game) draftGame = game;
-		else return goto('/');
+		else return goto(`/${base}`);
 
 		players = await getPlayers();
 		selectedPlayers = draftGame.players.map((p) => p.player);
@@ -107,7 +108,7 @@
 		<p class="text-center">
 			No players found!
 			<br />Add players from the
-			<a href="/manage-players" class="link">Manage Players</a>
+			<a href="/{base}/manage-players" class="link">Manage Players</a>
 			screen.
 		</p>
 	</div>

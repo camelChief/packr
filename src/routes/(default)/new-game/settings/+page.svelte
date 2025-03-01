@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from "$app/navigation";
+	import { base } from "$app/paths";
 	import { SETTINGS } from "$lib/constants";
 	import type { Setting } from "$lib/models/settings";
 	import { eventStore } from "$lib/stores";
@@ -31,7 +32,7 @@
 				// }
 
 				// navigate to next page
-				goto('/game/1');
+				goto(`/${base}/game/1`);
 			}
 		});
 	}

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
+	import { base } from '$app/paths';
 	import { ROLES } from '$lib/constants';
 	import { Game } from '$lib/models/game';
 	import { RoleType, Team, type Role } from '$lib/models/role';
@@ -28,7 +29,7 @@
 				assignRoles();
 				await updateGame(draftGame);
 				draftGameStore.set(draftGame);
-				goto('/new-game/settings');
+				goto(`/${base}/new-game/settings`);
 			}
 		});
 	}
@@ -81,7 +82,7 @@
 	onMount(() => {
 		const game = get(draftGameStore);
 		if (game) draftGame = game;
-		else return goto('/');
+		else return goto(`/${base}`);
 
 		subscribeToEvents();
 		populateRoles();
