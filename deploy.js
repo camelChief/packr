@@ -37,7 +37,7 @@ const deploy = () => {
     const publishDir = process.cwd();
 
     fs.readdirSync(publishDir).forEach((file) => {
-        if (file !== '.git' && file !== '.gitignore' && file !== 'build') {
+        if (file !== '.git' && file !== '.gitignore' && file !== 'node_modules' && file !== 'build') {
         const filePath = path.join(publishDir, file);
         if (fs.lstatSync(filePath).isDirectory()) {
             fs.rmdirSync(filePath, { recursive: true });
