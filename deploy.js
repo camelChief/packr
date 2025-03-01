@@ -40,7 +40,7 @@ const deploy = () => {
         if (file !== '.git' && file !== '.gitignore' && file !== 'node_modules' && file !== 'build') {
         const filePath = path.join(publishDir, file);
         if (fs.lstatSync(filePath).isDirectory()) {
-            fs.rmdirSync(filePath, { recursive: true });
+            fs.rmSync(filePath, { recursive: true });
         } else {
             fs.unlinkSync(filePath);
         }
@@ -55,7 +55,7 @@ const deploy = () => {
     });
 
     console.log('Deleting the build folder...');
-    fs.rmdirSync(buildDir, { recursive: true });
+    fs.rmSync(buildDir, { recursive: true });
 
     console.log('Committing and pushing changes to the publish branch...');
     runCommand('git add .');
