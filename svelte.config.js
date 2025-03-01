@@ -9,7 +9,7 @@ const config = {
 	kit: {
 		adapter: adapter({ fallback: 'index.html' }),
 		appDir: 'internal',
-		paths: { base: isProduction ? 'packr' : '' }
+		paths: { base: isProduction ? '/packr' : '' }
 	}
 };
 
