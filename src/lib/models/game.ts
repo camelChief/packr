@@ -6,18 +6,12 @@ export enum GameStatus {
 	Complete
 }
 
-// interface GameOptions {
-// 	id?: string;
-// 	status?: Status;
-// 	players?: string[];
-// }
-
 interface PlayerRolePair {
 	player: string;
 	role?: string;
 }
 
-interface GameObj {
+export interface GameObj {
 	id: string;
 	status: GameStatus;
 	players: PlayerRolePair[];
