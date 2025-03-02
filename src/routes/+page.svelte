@@ -83,8 +83,8 @@
 				</button>
 			</form>
 
-			<button onclick={editDraftGame} class="btn btn-secondary">Draft</button>
-			<button onclick={createNewGame} class="btn btn-primary">New</button>
+			<button onclick={createNewGame} class="btn btn-secondary">New</button>
+			<button onclick={editDraftGame} class="btn btn-primary">Draft</button>
 		</div>
 	</div>
 </dialog>

@@ -8,7 +8,7 @@ import type { PageLoad } from './$types';
 
 export const load: PageLoad = () => {
 	const draftGame = get(draftGameStore);
-	if (!draftGame || !draftGame.players.length) redirect(302, `${base}`);
+	if (!draftGame || !draftGame.players.length) redirect(302, `${base}/`);
 	
 	const pageData: PageData = {
 		title: 'Select Roles',

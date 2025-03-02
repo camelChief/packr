@@ -30,7 +30,7 @@
 	let page = $derived(pages[pageIndex]);
 
 	function back() {
-		if (pageIndex === 0) goto(`${base}`);
+		if (pageIndex === 0) goto(`${base}/`);
 		else pageIndex--;
 	}
 

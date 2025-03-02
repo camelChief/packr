@@ -54,7 +54,6 @@
 	}
 
 	// todo: this works quite well, but I'd love to clean it up
-	// continue: with the settings page!
 	function assignRoles() {
 		const specialRoles = [...roles].filter((r) => {
 			const isSpecial = r.type === RoleType.Special;
@@ -82,7 +81,7 @@
 	onMount(() => {
 		const game = get(draftGameStore);
 		if (game) draftGame = game;
-		else return goto(`${base}`);
+		else return goto(`${base}/`);
 
 		subscribeToEvents();
 		populateRoles();
