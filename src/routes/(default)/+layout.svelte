@@ -23,7 +23,7 @@
 <main class="column">
 	<section class="top-bar border-base-content/10">
 		<div class="breadcrumb">
-			<a href="{base}" class="logo">
+			<a href="{base}/" class="logo">
 				<Package size={16} strokeWidth={3} />
 				Packr
 			</a>

@@ -19,3 +19,7 @@ export interface PageData {
 	backButtonIcon?: any;
 	actions?: Action[];
 }
+
+export interface GamePageData extends PageData {
+	id: string;
+}

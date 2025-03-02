@@ -8,13 +8,13 @@ import type { PageLoad } from './$types';
 
 export const load: PageLoad = () => {
 	const draftGame = get(draftGameStore);
-	if (!draftGame) redirect(302, `${base}`);
+	if (!draftGame) redirect(302, `${base}/`);
 
 	const pageData: PageData = {
 		title: 'Select Players',
 		breadcrumbs: ['New Game'],
 		useBackButton: true,
-		backButtonUrl: `${base}`,
+		backButtonUrl: `${base}/`,
 		actions: [
 			{
 				type: ActionType.Button,

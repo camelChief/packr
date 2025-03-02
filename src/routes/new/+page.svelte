@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import { Package } from 'lucide-svelte';
+	import { onMount } from 'svelte';
+
+	onMount(() => localStorage.setItem('visited', 'true'));
 </script>
 
 <main class="column">
@@ -9,7 +12,7 @@
 		Packr
 	</h1>
 	<p class="description">A local-first tool for managing in-person games of Werewolf.</p>
-	<a href="{base}" class="btn btn-primary btn-lg">Get Started</a>
+	<a href="{base}/" class="btn btn-primary btn-lg">Get Started</a>
 </main>
 
 <style>

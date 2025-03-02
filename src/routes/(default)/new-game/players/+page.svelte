@@ -58,7 +58,7 @@
 	onMount(async () => {
 		const game = get(draftGameStore);
 		if (game) draftGame = game;
-		else return goto(`${base}`);
+		else return goto(`${base}/`);
 
 		players = await getPlayers();
 		selectedPlayers = draftGame.players.map((p) => p.player);
