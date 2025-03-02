@@ -57,6 +57,9 @@ const deploy = () => {
     console.log('Deleting the build folder...');
     fs.rmSync(buildDir, { recursive: true });
 
+    console.log('Creating a .nojekyll file...');
+    fs.writeFileSync(path.join(publishDir, '.nojekyll'), '');
+
     console.log('Committing and pushing changes to the publish branch...');
     runCommand('git add .');
     runCommand('git commit -m "Deploy to GitHub Pages"');
