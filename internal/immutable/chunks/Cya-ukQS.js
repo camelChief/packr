@@ -1,0 +1,1 @@
+import{g as t}from"./DqhOGYQp.js";async function n(a){await(await t()).add("players",a,a)}async function c(){return await(await t()).getAll("players")}async function d(a){await(await t()).delete("players",a)}export{n as c,d,c as g};

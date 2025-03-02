@@ -1,0 +1,1 @@
+import{b as e}from"../chunks/CmL7CjSX.js";import{r}from"../chunks/B90CZVMX.js";const o=()=>{r(303,`${e}/new-game/players`)},l=Object.freeze(Object.defineProperty({__proto__:null,load:o},Symbol.toStringTag,{value:"Module"}));export{l as universal};
