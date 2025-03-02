@@ -17,7 +17,7 @@
 	async function editDraftGame() {
 		const draftGame = await getDraftGame();
 		if (!draftGame) {
-			goto(`${base}/new-game`);
+			goto(`${base}/new-game/players`);
 			return;
 		}
 
@@ -35,7 +35,7 @@
 		const newGame = new Game({});
 		await createGame(newGame);
 		draftGameStore.set(newGame);
-		goto(`${base}/new-game`);
+		goto(`${base}/new-game/players`);
 	}
 
 	async function getDraftGame() {
