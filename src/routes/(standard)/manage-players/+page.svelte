@@ -7,16 +7,21 @@
 	let players: string[] = [];
 	let newPlayer = '';
 
+	async function removePlayer(player: string) {
+		await deletePlayer(player);
+		players = players.filter((p) => p !== player);
+	}
+
+	async function closeModal() {
+		newPlayer = '';
+		addPlayerModal.close();
+	}
+
 	async function addPlayer() {
 		await createPlayer(newPlayer);
 		players = [...players, newPlayer].sort();
 		newPlayer = '';
 		addPlayerModal.close();
-	}
-
-	async function removePlayer(player: string) {
-		await deletePlayer(player);
-		players = players.filter((p) => p !== player);
 	}
 
 	onMount(async () => {
@@ -69,12 +74,9 @@
 			<input type="text" placeholder="Name" bind:value={newPlayer} class="input w-full" />
 		</label>
 		<div class="modal-action">
-			<form method="dialog">
-				<button class="btn btn-square">
-					<ArrowLeft />
-				</button>
-			</form>
-
+			<button onclick={closeModal} class="btn btn-square">
+				<ArrowLeft />
+			</button>
 			<button onclick={addPlayer} class="btn btn-square btn-success">
 				<Plus />
 			</button>
