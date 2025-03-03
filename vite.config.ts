@@ -6,6 +6,14 @@ import { defineConfig } from 'vite';
 export default defineConfig({
 	plugins: [sveltekit(), tailwindcss()],
 
+	build: {
+		rollupOptions: {
+			output: {
+				manualChunks: () => 'everything.js'
+			},
+		},
+	},
+
 	test: {
 		workspace: [
 			{
