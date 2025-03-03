@@ -5,45 +5,42 @@
 	import { createGame, deleteGame, getGames } from '$lib/services/game-service';
 	import { draftGameStore } from '$lib/stores';
 	import { ArrowLeft, Drama, Package, Settings, Swords, Users } from 'lucide-svelte';
+	import { onMount } from 'svelte';
 
-	let draftGame: Game | null = null;
+	let incompleteGame: Game | undefined;
+	let gameInProgress = false;
 
-	async function newGame() {
-		const draftGame = await getDraftGame();
-		if (draftGame?.players?.length) draftGameModal.showModal();
-		else createNewGame();
-	}
+	function continueGame() {
 
-	async function editDraftGame() {
-		const draftGame = await getDraftGame();
-		if (!draftGame) {
-			goto(`${base}/new-game/players`);
-			return;
-		}
-
-		const playerCount = draftGame.players.length;
-		const missingRoles = draftGame.players.some((p) => !p.role);
-
-		if (playerCount < 7 || playerCount > 35) goto(`${base}/new-game/players`);
-		else if (missingRoles) goto(`${base}/new-game/roles`);
-		else if (!draftGame.settings.length) goto(`${base}/new-game/settings`);
 	}
 
 	async function createNewGame() {
-		const draftGame = await getDraftGame();
-		if (draftGame) await deleteGame(draftGame.id);
+		if (incompleteGame) await deleteGame(incompleteGame.id);
 		const newGame = new Game({});
 		await createGame(newGame);
 		draftGameStore.set(newGame);
 		goto(`${base}/new-game/players`);
 	}
 
-	async function getDraftGame() {
-		if (draftGame) return draftGame;
-		const games = await getGames();
-		draftGame = games.find((g) => g.status === GameStatus.Draft) ?? null;
-		return draftGame;
+	async function editDraftGame() {
+		if (!incompleteGame) {
+			goto(`${base}/new-game/players`);
+			return;
+		}
+
+		const playerCount = incompleteGame.players.length;
+		const missingRoles = incompleteGame.players.some((p) => !p.role);
+
+		if (playerCount < 7 || playerCount > 35) goto(`${base}/new-game/players`);
+		else if (missingRoles) goto(`${base}/new-game/roles`);
+		else if (!incompleteGame.settings.length) goto(`${base}/new-game/settings`);
 	}
+
+	onMount(async () => {
+		const games = await getGames();
+		incompleteGame = games.find((g) => g.status !== GameStatus.Complete);
+		gameInProgress = incompleteGame?.status === GameStatus.InProgress;
+	});
 </script>
 
 <main class="column">
@@ -51,7 +48,17 @@
 		<Package strokeWidth={3} />
 		Packr
 	</h3>
-	<button onclick={newGame} class="btn btn-lg btn-primary">
+	{#if gameInProgress}
+		<a href="{base}/game/{incompleteGame?.id}" class="btn btn-lg btn-primary">
+			<Swords />
+			Continue Game
+		</a>
+	{/if}
+	<button onclick={() => {
+		if (gameInProgress) inProgressGameModal.showModal();
+		else if (incompleteGame?.players?.length) draftGameModal.showModal();
+		else createNewGame();
+	}} class="btn btn-lg {gameInProgress ? 'btn-secondary' : 'btn-primary'}">
 		<Swords />
 		New Game
 	</button>
@@ -68,6 +75,25 @@
 		Settings
 	</a>
 </main>
+
+<dialog id="inProgressGameModal" class="modal">
+	<div class="modal-box p-8">
+		<h3 class="mb-4">Game In Progress</h3>
+		<p>
+			It looks like you are in the middle of another game. Creating a new
+			game will discard the current one. Would you like to continue?
+		</p>
+		<div class="modal-action">
+			<form method="dialog">
+				<button class="btn btn-square">
+					<ArrowLeft />
+				</button>
+			</form>
+
+			<button onclick={createNewGame} class="btn btn-primary">Continue</button>
+		</div>
+	</div>
+</dialog>
 
 <dialog id="draftGameModal" class="modal">
 	<div class="modal-box p-8">
@@ -90,7 +116,7 @@
 </dialog>
 
 <style>
-	.column {
+	main {
 		align-items: center;
 		gap: 1rem;
 		justify-content: center;
