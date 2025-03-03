@@ -22,7 +22,7 @@
 			if (event === 'startGame') {
 				eventStore.set('');
                 draftGame.settings = mapSettingsToObj(settings);
-                draftGame.status = GameStatus.Running;
+                draftGame.status = GameStatus.InProgress;
 				await updateGame(draftGame);
 				draftGameStore.set(draftGame);
 				goto(`${base}/game/${draftGame.id}`);

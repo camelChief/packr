@@ -2,7 +2,7 @@ import type { Settings } from './settings';
 
 export enum GameStatus {
 	Draft,
-	Running,
+	InProgress,
 	Complete
 }
 
