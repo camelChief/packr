@@ -4,7 +4,7 @@
 	import { Game, GameStatus } from '$lib/models/game';
 	import { createGame, deleteGame, getGames } from '$lib/services/game-service';
 	import { draftGameStore } from '$lib/stores';
-	import { ArrowLeft, Drama, Package, Settings, Swords, Users } from 'lucide-svelte';
+	import { ArrowLeft, Drama, Package, Plus, Settings, Swords, Users } from 'lucide-svelte';
 	import { onMount } from 'svelte';
 
 	let incompleteGame: Game | undefined;
@@ -51,15 +51,15 @@
 	{#if gameInProgress}
 		<a href="{base}/game/{incompleteGame?.id}" class="btn btn-lg btn-primary">
 			<Swords />
-			Continue Game
+			Continue
 		</a>
 	{/if}
 	<button onclick={() => {
 		if (gameInProgress) inProgressGameModal.showModal();
 		else if (incompleteGame?.players?.length) draftGameModal.showModal();
 		else createNewGame();
-	}} class="btn btn-lg {gameInProgress ? 'btn-secondary' : 'btn-primary'}">
-		<Swords />
+	}} class="btn btn-lg btn-primary">
+		<Plus />
 		New Game
 	</button>
 	<a href="{base}/manage-players" class="btn btn-lg">
@@ -120,6 +120,7 @@
 		align-items: center;
 		gap: 1rem;
 		justify-content: center;
+		padding: 2rem;
 	}
 
 	.logo {
