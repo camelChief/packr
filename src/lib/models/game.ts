@@ -6,7 +6,7 @@ export enum GameStatus {
 	Complete
 }
 
-interface PlayerRolePair {
+export interface PlayerRolePair {
 	player: string;
 	role?: string;
 }

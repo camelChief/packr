@@ -1,4 +1,5 @@
-import { Beer, Eye, Gitlab, HeartCrack, Stethoscope, Swords, User, Wand } from 'lucide-svelte';
+import Wolf from '$lib/components/Wolf.svelte';
+import { Beer, Eye, HeartCrack, Stethoscope, Swords, User, Wand } from 'lucide-svelte';
 import { RoleType, Team, type Role } from './models/role';
 import type { Setting } from './models/settings';
 
@@ -7,13 +8,15 @@ export const ROLES: Role[] = [
 		// standard roles
 		name: 'Villager',
 		icon: User,
+		description: 'Defend the Village.',
 		type: RoleType.Standard,
 		team: Team.Villager,
 		required: true
 	},
 	{
 		name: 'Werewolf',
-		icon: Gitlab,
+		icon: Wolf,
+		description: 'Take over the Village.',
 		type: RoleType.Standard,
 		team: Team.Werewolf,
 		required: true
@@ -23,6 +26,7 @@ export const ROLES: Role[] = [
 		// villager special roles
 		name: 'Doctor',
 		icon: Stethoscope,
+		description: 'Heal the innocent.',
 		type: RoleType.Special,
 		team: Team.Villager,
 		required: true
@@ -30,6 +34,7 @@ export const ROLES: Role[] = [
 	{
 		name: 'Seer',
 		icon: Eye,
+		description: 'Find the Werewolves.',
 		type: RoleType.Special,
 		team: Team.Villager,
 		required: true
@@ -37,24 +42,28 @@ export const ROLES: Role[] = [
 	{
 		name: 'Witch',
 		icon: Wand,
+		description: 'Heal once, kill once.',
 		type: RoleType.Special,
 		team: Team.Villager
 	},
 	{
 		name: 'Village Drunk',
 		icon: Beer,
+		description: 'Speak only gibberish.',
 		type: RoleType.Special,
 		team: Team.Villager
 	},
 	{
 		name: 'Cupid',
 		icon: HeartCrack,
+		description: 'Bind players with love.',
 		type: RoleType.Special,
 		team: Team.Villager
 	},
 	{
 		name: 'Vigilante',
 		icon: Swords,
+		description: 'Handle it yourself.',
 		type: RoleType.Special,
 		team: Team.Villager
 	},
@@ -62,19 +71,22 @@ export const ROLES: Role[] = [
 	{
 		// werewolf special roles
 		name: 'Alpha Werewolf',
-		icon: Gitlab,
+		icon: Wolf,
+		description: 'Say \'Werewolf\' daily.',
 		type: RoleType.Special,
 		team: Team.Werewolf
 	},
 	{
 		name: 'Lone Wolf',
-		icon: Gitlab,
+		icon: Wolf,
+		description: 'Be the last one standing.',
 		type: RoleType.Special,
 		team: Team.Werewolf
 	},
 	{
 		name: 'Wolf Cub',
-		icon: Gitlab,
+		icon: Wolf,
+		description: 'Beloved by wolf-kind.',
 		type: RoleType.Special,
 		team: Team.Werewolf
 	}

@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
+	import Wolf from '$lib/components/Wolf.svelte';
 	import { ROLES } from '$lib/constants';
 	import { Game } from '$lib/models/game';
 	import { RoleType, Team, type Role } from '$lib/models/role';
 	import { updateGame } from '$lib/services/game-service';
 	import { draftGameStore, eventStore } from '$lib/stores';
-	import { CircleSmall, Gitlab, Minus, Plus, User } from 'lucide-svelte';
+	import { CircleSmall, Minus, Plus, User } from 'lucide-svelte';
 	import { onDestroy, onMount } from 'svelte';
 	import { get, type Unsubscriber } from 'svelte/store';
 
@@ -126,7 +127,7 @@
 			{villagerCount} Villagers
 		</li>
 		<li class="list-row">
-			<Gitlab />
+			<Wolf />
 			{werewolfCount}
 			{werewolfCount === 1 ? 'Werewolf' : 'Werewolves'}
 			<div>

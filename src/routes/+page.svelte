@@ -10,10 +10,6 @@
 	let incompleteGame: Game | undefined;
 	let gameInProgress = false;
 
-	function continueGame() {
-
-	}
-
 	async function createNewGame() {
 		if (incompleteGame) await deleteGame(incompleteGame.id);
 		const newGame = new Game({});

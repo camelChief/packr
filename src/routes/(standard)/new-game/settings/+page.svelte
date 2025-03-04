@@ -24,7 +24,7 @@
                 draftGame.settings = mapSettingsToObj(settings);
                 draftGame.status = GameStatus.InProgress;
 				await updateGame(draftGame);
-				draftGameStore.set(draftGame);
+				draftGameStore.set(undefined);
 				goto(`${base}/game/${draftGame.id}`);
 			}
 		});

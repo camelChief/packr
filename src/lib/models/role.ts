@@ -11,6 +11,7 @@ export enum Team {
 export interface Role {
 	name: string;
 	icon: any;
+	description: string;
 	type: RoleType;
 	team: Team;
 	required?: boolean;
