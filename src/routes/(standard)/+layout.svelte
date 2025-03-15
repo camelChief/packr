@@ -10,8 +10,15 @@
 	import type { Unsubscriber } from 'svelte/store';
 
 	let { children } = $props();
+	let content: HTMLElement;
+	let headerSize = $state('1.75rem');
 	let validations: string[] = $state([]);
 	let unsubscribeFromValidations: Unsubscriber;
+
+	function scroll() {
+		if (content.scrollTop > 32) headerSize = '1.25rem';
+		else headerSize = '1.75rem';
+	}
 
 	onMount(() => {
 		unsubscribeFromValidations = validationStore.subscribe((v) => (validations = v));
@@ -22,6 +29,7 @@
 
 <main class="column">
 	<section class="top-bar border-base-content/10">
+		{#if headerSize === '1.75rem'}
 		<div class="breadcrumb">
 			<a href="{base}/" class="logo">
 				<Package size={16} strokeWidth={3} />
@@ -32,9 +40,10 @@
 				{crumb}
 			{/each}
 		</div>
-		<h3>{page.data.title ?? 'Unknown'}</h3>
+		{/if}
+		<h3 style:font-size={headerSize}>{page.data.title ?? 'Unknown'}</h3>
 	</section>
-	<section class="content">
+	<section bind:this={content} onscroll={scroll} class="content">
 		{@render children()}
 	</section>
 	<section class="bottom-bar border-base-content/10">
