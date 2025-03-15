@@ -2,7 +2,7 @@ import { base } from '$app/paths';
 import { ActionType, type PageData } from '$lib/models/page-data';
 import { draftGameStore } from '$lib/stores';
 import { redirect } from '@sveltejs/kit';
-import { ArrowRight } from 'lucide-svelte';
+import { ArrowRight, Plus } from 'lucide-svelte';
 import { get } from 'svelte/store';
 import type { PageLoad } from './$types';
 
@@ -16,6 +16,12 @@ export const load: PageLoad = () => {
 		useBackButton: true,
 		backButtonUrl: `${base}/`,
 		actions: [
+			{
+				type: ActionType.Button,
+				reference: 'openAddPlayerModal',
+				icon: Plus,
+				class: 'btn-success'
+			},
 			{
 				type: ActionType.Button,
 				reference: 'nextPage',
