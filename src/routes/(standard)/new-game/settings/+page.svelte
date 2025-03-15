@@ -11,6 +11,7 @@
 
     interface EditableSetting extends Setting {
         value: boolean | number | string;
+        field?: HTMLInputElement;
     }
 
     let draftGame: Game;
@@ -40,6 +41,13 @@
         return settingsObj;
     }
 
+    function select(settingId: string) {
+        const setting = settings.find(s => s.id === settingId);
+        if (!setting) return;
+        if (setting.type === 'boolean') setting.value = !setting.value;
+        else setting.field!.focus();
+	}
+
     onMount(() => {
 		const game = get(draftGameStore);
 		if (game) draftGame = game;
@@ -57,17 +65,17 @@
 
     <ul class="list">
         {#each settings as setting}
-            <li class="list-row items-center">
+            <button onclick={() => select(setting.id)} class="list-row items-center text-start">
                 {#if setting.type === 'boolean'}
                     <input type="checkbox" bind:checked={setting.value as boolean} class="toggle" />
                 {:else if setting.type === 'number'}
-                    <input type="number" bind:value={setting.value as number} class="input w-10" />
+                    <input type="number" bind:this={setting.field} bind:value={setting.value as number} class="input w-10" />
                 {/if}
                 <div>
                     <div>{setting.label}</div>
                     <div class="text-base-content/50 text-base">{setting.description}</div>
                 </div>
-            </li>
+            </button>
         {/each}
     </ul>
 </main>
