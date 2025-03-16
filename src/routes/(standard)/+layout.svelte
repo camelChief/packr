@@ -5,7 +5,7 @@
 	import { page } from '$app/state';
 	import { ActionType } from '$lib/models/page-data';
 	import { eventStore, validationStore } from '$lib/stores';
-	import { ArrowLeft, MoveRight, Package } from 'lucide-svelte';
+	import { ArrowLeft, Package } from 'lucide-svelte';
 	import { onDestroy, onMount } from 'svelte';
 	import type { Unsubscriber } from 'svelte/store';
 
@@ -22,16 +22,9 @@
 
 <main class="column">
 	<section class="top-bar border-base-content/10">
-		<div class="breadcrumb">
-			<a href="{base}/" class="logo">
-				<Package size={16} strokeWidth={3} />
-				Packr
-			</a>
-			{#each page.data.breadcrumbs as crumb}
-				<MoveRight size={16} strokeWidth={3} />
-				{crumb}
-			{/each}
-		</div>
+		<a href="{base}/" class="opacity-25">
+			<Package strokeWidth={2.5} />
+		</a>
 		<h3>{page.data.title ?? 'Unknown'}</h3>
 	</section>
 	<section class="content">
@@ -42,9 +35,9 @@
 			{#if page.data.useBackButton}
 				<a href={page.data.backButtonUrl} class="btn btn-square">
 					{#if page.data.backButtonIcon}
-						<page.data.backButtonIcon />
+						<page.data.backButtonIcon size={20} />
 					{:else}
-						<ArrowLeft />
+						<ArrowLeft size={20} />
 					{/if}
 				</a>
 			{/if}
@@ -55,7 +48,7 @@
 						class={['btn btn-square', action.class]}
 						disabled={action.validIf && !validations.includes(action.validIf)}
 					>
-						<action.icon />
+						<action.icon size={20} />
 					</button>
 				{:else if action.type === ActionType.Link}
 					<a
@@ -65,7 +58,7 @@
 							? ''
 							: 'btn-disabled'}"
 					>
-						<action.icon />
+						<action.icon size={20} />
 					</a>
 				{/if}
 			{/each}
@@ -75,8 +68,11 @@
 
 <style>
 	.top-bar {
+		align-items: center;
 		border-bottom-style: solid;
 		border-bottom-width: 1px;
+		column-gap: .5rem;
+		display: flex;
 		flex-shrink: 0;
 		padding: 2rem 2rem 1rem 2rem;
 	}
@@ -106,12 +102,12 @@
 		border-top-style: solid;
 		border-top-width: 1px;
 		flex-shrink: 0;
-		height: 3.25rem;
+		height: 2.25rem;
 	}
 
 	.bottom-bar .actions {
 		background-color: var(--color-base-100);
-		bottom: 2rem;
+		bottom: 1rem;
 		display: flex;
 		gap: 0.5rem;
 		position: absolute;

@@ -37,20 +37,20 @@
 
 {#if players?.length}
 	<main>
-		<p class="pb-8">
+		<p class="mb-8">
 			Add players here to save them for easy inclusion in future games. All data is saved locally to
 			your device.
 		</p>
 		<ul class="list rounded-box border-base-content/10 border-1">
 			{#each players as player}
 				<li class="list-row items-center">
-					<User />
+					<User size={20} />
 					{player}
 					<button
 						onclick={() => removePlayer(player)}
-						class="btn btn-square btn-sm btn-error btn-soft"
+						class="btn btn-square btn-xs btn-error btn-soft"
 					>
-						<X />
+						<X size={20} />
 					</button>
 				</li>
 			{/each}

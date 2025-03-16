@@ -92,14 +92,14 @@
 	<ul class="list rounded-box border-base-content/10 border-1">
 		<button onclick={selectAll} class="list-row select-all">
 			{#if selectedPlayers.length === players.length}
-				<SquareCheck />
+				<SquareCheck size={20} />
 			{:else if selectedPlayers.length > 0}
 				<div class="opacity-50">
-					<SquareDot />
+					<SquareDot size={20} />
 				</div>
 			{:else}
 				<div class="opacity-25">
-					<Square />
+					<Square size={20} />
 				</div>
 			{/if}
 			{selectedPlayers.length} selected
@@ -107,11 +107,11 @@
 		{#each players as player}
 			<button onclick={() => select(player)} class="list-row">
 				{#if selectedPlayers.includes(player)}
-					<UserSquare />
+					<UserSquare size={20} />
 					{player}
 				{:else}
 					<div class="opacity-25">
-						<Square />
+						<Square size={20} />
 					</div>
 					<span class="opacity-25">{player}</span>
 				{/if}
@@ -141,10 +141,10 @@
 		</label>
 		<div class="modal-action">
 			<button onclick={closeModal} class="btn btn-square">
-				<ArrowLeft />
+				<ArrowLeft size={20} />
 			</button>
 			<button onclick={addPlayer} class="btn btn-square btn-success">
-				<Plus />
+				<Plus size={20} />
 			</button>
 		</div>
 	</div>

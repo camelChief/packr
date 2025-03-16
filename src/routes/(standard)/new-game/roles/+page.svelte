@@ -101,11 +101,11 @@
 		{#each roles.filter((r) => r.team === team) as role}
 			<button onclick={() => select(role.name)} class="list-row">
 				{#if role.required || role.selected}
-					<role.icon />
+					<role.icon size={20} />
 					{role.name}
 				{:else}
 					<div class="opacity-25">
-						<CircleSmall />
+						<CircleSmall size={20} />
 					</div>
 					<span class="opacity-25">{role.name}</span>
 				{/if}
@@ -123,27 +123,27 @@
 	<ul class="list rounded-box border-base-content/10 mb-8 border-1">
 		<li class="p-4 font-bold">Teams</li>
 		<li class="list-row">
-			<User />
+			<User size={20} />
 			{villagerCount} Villagers
 		</li>
 		<li class="list-row">
-			<Wolf />
+			<Wolf size={20} />
 			{werewolfCount}
 			{werewolfCount === 1 ? 'Werewolf' : 'Werewolves'}
 			<div>
 				<button
 					onclick={() => werewolfCount--}
-					class="btn btn-square btn-sm btn-error"
+					class="btn btn-square btn-xs btn-error"
 					disabled={werewolfCount === 1}
 				>
-					<Minus />
+					<Minus size={20} />
 				</button>
 				<button
 					onclick={() => werewolfCount++}
-					class="btn btn-square btn-sm btn-success"
+					class="btn btn-square btn-xs btn-success"
 					disabled={werewolfCount + 1 >= villagerCount - 1}
 				>
-					<Plus />
+					<Plus size={20} />
 				</button>
 			</div>
 		</li>

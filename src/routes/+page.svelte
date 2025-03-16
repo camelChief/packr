@@ -41,12 +41,12 @@
 
 <main class="column">
 	<h3 class="logo">
-		<Package strokeWidth={3} />
+		<Package strokeWidth={2.5} />
 		Packr
 	</h3>
 	{#if gameInProgress}
-		<a href="{base}/game/{incompleteGame?.id}" class="btn btn-lg btn-primary">
-			<Swords />
+		<a href="{base}/game/{incompleteGame?.id}" class="btn btn-primary">
+			<Swords size={20} />
 			Continue
 		</a>
 	{/if}
@@ -54,20 +54,20 @@
 		if (gameInProgress) inProgressGameModal.showModal();
 		else if (incompleteGame?.players?.length) draftGameModal.showModal();
 		else createNewGame();
-	}} class="btn btn-lg btn-primary">
-		<Plus />
+	}} class="btn btn-primary">
+		<Plus size={20} />
 		New Game
 	</button>
-	<a href="{base}/manage-players" class="btn btn-lg">
-		<Users />
+	<a href="{base}/manage-players" class="btn">
+		<Users size={20} />
 		Manage Players
 	</a>
-	<a href="{base}/manage-roles" class="btn btn-lg">
-		<Drama />
+	<a href="{base}/manage-roles" class="btn">
+		<Drama size={20} />
 		Manage Roles
 	</a>
-	<a href="{base}/settings" class="btn btn-lg">
-		<Settings />
+	<a href="{base}/settings" class="btn">
+		<Settings size={20} />
 		Settings
 	</a>
 </main>
@@ -82,7 +82,7 @@
 		<div class="modal-action">
 			<form method="dialog">
 				<button class="btn btn-square">
-					<ArrowLeft />
+					<ArrowLeft size={20} />
 				</button>
 			</form>
 
@@ -101,7 +101,7 @@
 		<div class="modal-action">
 			<form method="dialog">
 				<button class="btn btn-square">
-					<ArrowLeft />
+					<ArrowLeft size={20} />
 				</button>
 			</form>
 

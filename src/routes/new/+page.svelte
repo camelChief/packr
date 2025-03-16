@@ -8,7 +8,7 @@
 
 <main class="column">
 	<h1 class="title">
-		<Package size={36} strokeWidth={3} />
+		<Package size={32} strokeWidth={2.5} />
 		Packr
 	</h1>
 	<p class="description">A local-first tool for managing in-person games of Werewolf.</p>

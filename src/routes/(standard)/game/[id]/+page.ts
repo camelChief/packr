@@ -6,7 +6,7 @@ import type { PageLoad } from './$types';
 export const load: PageLoad = ({ params }) => {
 	const pageData: GamePageData = {
 		id: params.id,
-		title: `Game: ${params.id}`,
+		title: 'Game',
 		useBackButton: true,
 		backButtonUrl: `${base}/`,
 		backButtonIcon: House
